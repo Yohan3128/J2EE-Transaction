@@ -7,6 +7,8 @@
     <groupId>com.hnys</groupId>
     <artifactId>J2EE-Transaction</artifactId>
     <version>1.0</version>
+    <packaging>war</packaging>
+    <name>j2ee-jta</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -14,5 +16,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <finalName>${project.name}</finalName>
+    </build>
 </project>
