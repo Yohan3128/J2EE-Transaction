@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
-    <persistence-unit name="JTA-PU" transaction-type="RESOURCE_LOCAL">
+    <!--    <persistence-unit name="JTA-PU" transaction-type="RESOURCE_LOCAL">-->
+    <!--        <properties>-->
+    <!--            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transaction_db?useSSL=false&amp;allowPublicKeyRetrieval=true"/>-->
+    <!--            <property name="jakarta.persistence.jdbc.user" value="root"/>-->
+    <!--            <property name="jakarta.persistence.jdbc.password" value="Yohan@2003"/>-->
+    <!--        </properties>-->
+    <!--    </persistence-unit>-->
+    <persistence-unit name="JTA-PU" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<!--        <non-jta-data-source>jiat_jdbc</non-jta-data-source>-->
+        <jta-data-source>jiat_jdbc</jta-data-source>
         <properties>
-            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transaction_db?useSSL=false&amp;allowPublicKeyRetrieval=true"/>
-            <property name="jakarta.persistence.jdbc.user" value="root"/>
-            <property name="jakarta.persistence.jdbc.password" value="Yohan@2003"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
         </properties>
     </persistence-unit>
 </persistence>
