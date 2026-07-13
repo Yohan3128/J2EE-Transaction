@@ -27,7 +27,7 @@ public class Test extends HttpServlet {
 
 //        EntityManager em = ManagerFactory.getEntityManager();
 
-        List<Object[]> resultList = em.createNativeQuery("select * from user").getResultList();
+        List<Object[]> resultList = em.createNativeQuery("select * from users").getResultList();
         resultList.forEach(r -> {
             System.out.println(r[0] +" : "+r[1] +" : "+r[2] +" : "+r[3]);
         });
