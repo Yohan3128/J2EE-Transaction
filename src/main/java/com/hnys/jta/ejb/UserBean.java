@@ -1,4 +1,9 @@
 package com.hnys.jta.ejb;
 
-public class UserBean {
+import jakarta.ejb.Local;
+
+@Local
+public interface UserBean {
+    boolean login(String username, String password);
+    boolean register(String name , String email, String password);
 }
