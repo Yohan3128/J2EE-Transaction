@@ -4,6 +4,7 @@ import com.hnys.jta.entity.User;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
 
 import java.math.BigDecimal;
@@ -72,8 +73,13 @@ public class UserBeanImpl implements UserBean{
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void transfer(Long from, Long to, BigDecimal amount) {
-        accountBean.debit(from,amount);
+
+        EntityTransaction transaction = em.getTransaction();
+        System.out.println("transfer : "+System.identityHashCode(transaction));
+
+        accountBean.debit(from,amount); //JTA + IIOP
         accountBean.credit(to,amount);
     }
 }
