@@ -73,11 +73,13 @@ public class UserBeanImpl implements UserBean{
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void transfer(Long from, Long to, BigDecimal amount) {
 
-        EntityTransaction transaction = em.getTransaction();
-        System.out.println("transfer : "+System.identityHashCode(transaction));
+//        EntityTransaction transaction = em.getTransaction();
+//        System.out.println("transfer : "+System.identityHashCode(transaction));
+
+//        transaction.commit();
 
         accountBean.debit(from,amount); //JTA + IIOP
         accountBean.credit(to,amount);

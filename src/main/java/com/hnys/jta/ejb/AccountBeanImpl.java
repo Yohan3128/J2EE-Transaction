@@ -18,10 +18,10 @@ public class AccountBeanImpl implements AccountBean {
     private EntityManager em;
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void credit(Long accountNo, BigDecimal amount) {
-        EntityTransaction transaction = em.getTransaction();
-        System.out.println("credit : "+System.identityHashCode(transaction));
+//        EntityTransaction transaction = em.getTransaction();
+//        System.out.println("credit : "+System.identityHashCode(transaction));
         try {
             Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)
                     .setParameter("accountNo", accountNo)
@@ -29,16 +29,18 @@ public class AccountBeanImpl implements AccountBean {
 
             account.setBalance(account.getBalance().add(amount));
 
+            em.merge(account);
+
         } catch (NoResultException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void debit(Long accountNo, BigDecimal amount) {
-        EntityTransaction transaction = em.getTransaction();
-        System.out.println("debit : "+System.identityHashCode(transaction));
+//        EntityTransaction transaction = em.getTransaction();
+//        System.out.println("debit : "+System.identityHashCode(transaction));
         try {
             Account account = em.createNamedQuery("Account.findByAccountNo", Account.class)
                     .setParameter("accountNo", accountNo)
